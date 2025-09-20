@@ -97,7 +97,7 @@ export default function Header() {
       </h1>
 
       <div
-        className="max-w-7xl mx-auto px-4 h-20 grid grid-cols-3 items-center"
+        className="max-w-7xl mx-auto px-4 h-32 grid grid-cols-3 items-center"
         style={{ paddingTop: "env(safe-area-inset-top)" }}
       >
         <div className="block md:hidden" aria-hidden="true" />
@@ -113,7 +113,7 @@ export default function Header() {
             <img
               src={logo}
               alt="Murat Çalık — Tekirdağ Marmaraereğlisi arsalar ve projeler"
-              className="h-16 w-auto object-contain"
+              className="h-20 w-auto object-contain"
             />
           </a>
         </div>
@@ -129,7 +129,7 @@ export default function Header() {
             <img
               src={logo}
               alt="Murat Çalık — Tekirdağ Marmaraereğlisi arsalar ve projeler"
-              className="h-10 w-auto object-contain"
+              className="mt-2 h-25 w-auto object-contain"
             />
           </a>
         </div>
@@ -192,7 +192,15 @@ export default function Header() {
           })}
         </nav>
       </div>
-
+      {/* KOMİSYON YOK şeridi */}
+      <div className="bg-[#C32C31] text-white text-center py-2">
+        <div className="flex flex-col md:flex-row justify-center items-center font-semibold md:text-base">
+          <span className="uppercase tracking-wide text-lg">"KOMİSYON YOK"</span>
+          <span className="md:ml-2 text-lg">
+            Doğrudan sahibiyle muhatapsınız!
+          </span>
+        </div>
+      </div>
       {/* Mobile overlay + sheet (blur KALDIRILDI) */}
       <div
         className={[

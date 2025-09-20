@@ -14,8 +14,9 @@ export default function App() {
         <Kurumsal />
         <Iletisim />
       </main>
-      <footer className="border-t mt-16 py-8 text-center text-sm text-gray-500">
-        © {new Date().getFullYear()} Created by sudenur.tilla2020@gmail.com
+      <footer className="border-t bg-[#C32C31] text-white py-5 text-center text-sm">
+        © {new Date().getFullYear()} Bu site SDN Ajans tarafından
+        geliştirilmiştir. <br /> Created by sudenur.tilla2020@gmail.com
       </footer>
     </>
   );

@@ -1,5 +1,44 @@
 import VideoCarouselGrid from "../components/VideoCarousel";
 import { useVideos } from "../features/videos/useVideos";
+import type { VideoDoc } from "../features/videos/types";
+
+/** UI'da görünmeyen SEO JSON-LD blokları */
+function ArsalarSeoJsonLd({ items }: { items: VideoDoc[] }) {
+  const org = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Arsa Grubu",
+    url: "https://example.com",
+    logo: "https://example.com/logo.png",
+  };
+
+  const breadcrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Ana Sayfa", item: "https://example.com" },
+      { "@type": "ListItem", position: 2, name: "Arsalar",  item: "https://example.com/arsalar" },
+    ],
+  };
+
+  const videos = (items || []).map((v) => ({
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    name: v.title,
+    description: v.description || "Arsa seçimi ve yatırım analizleri hakkında bilgilendirici video.",
+    thumbnailUrl: `https://img.youtube.com/vi/${v.youtubeId}/hqdefault.jpg`,
+    embedUrl: `https://www.youtube.com/embed/${v.youtubeId}`,
+    publisher: { "@type": "Organization", name: "Arsa Grubu" },
+  }));
+
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(org) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(videos) }} />
+    </>
+  );
+}
 
 export default function Arsalar() {
   const { data, loading, error } = useVideos("arsalar");
@@ -9,19 +48,13 @@ export default function Arsalar() {
       id="arsalar"
       role="region"
       aria-labelledby="arsalar-title"
-      className="min-h-screen max-w-7xl mx-auto px-4 md:px-8 lg:px-12 py-12 scroll-mt-20"
+      className="min-h-screen max-w-7xl mx-auto px-4 md:px-8 lg:px-12 py-2 scroll-mt-20"
     >
       {/* Başlık */}
       <header className="mb-6">
-        {/* küçük marka rozeti */}
-        <div className="mb-2 inline-flex items-center gap-2 rounded-full bg-[#C32C31]/10 px-3 py-1 text-xs font-medium text-[#C32C31]">
-          <span className="inline-block h-1.5 w-1.5 rounded-full bg-[#C32C31]" />
-          Arsa Portföyü
-        </div>
-
         <h2
           id="arsalar-title"
-          className="text-2xl md:text-3xl font-semibold text-[#151618]"
+          className="text-2xl md:text-3xl font-semibold text-[BLACK]"
         >
           Arsalarımız
           {!loading && !error && data.length > 0 && (
@@ -31,10 +64,16 @@ export default function Arsalar() {
           )}
         </h2>
         <p className="mt-1 text-sm text-gray-700">
-          Tekirdağ Marmaraereğlisi ve çevresinde, imarlı/imarsız seçenekleriyle
-          yatırım potansiyeli yüksek satılık arsalar. Ulaşım, altyapı ve
-          bölgesel gelişim kriterlerini birlikte değerlendirerek doğru yatırımı
-          seçmenize yardımcı oluyoruz.
+          Arsa Grubumuz olarak, bugüne kadar “Yüksek Kazançlı” Onlarca ailemizi
+          arsa sahibi yaptık. Kurumsal yapımızla, klasik arsa yatırım anlayışını
+          bir adım öteye taşıyarak “Sosyal Arsa” ve “Projeli Arsa” kavramlarını
+          yatırım dünyasına kazandırdık. Bu yeni nesil yaklaşım sayesinde,
+          sadece bir arsa değil; sosyal yaşam alanlarıyla desteklenmiş, geleceğe
+          dönük yatırım fırsatları sunuyoruz. Arsa Grubumuz olarak yaşamın tam
+          içinde; doğayla uyumlu, sosyal ilişkilerin kurulabildiği, insanların
+          kendilerine ait bir yaşam kurabileceği alanlar oluşturuyoruz. Arsa
+          yatırımlarını sadece maddi kazanç değil, aynı zamanda yaşam kalitesini
+          artıran bir değer olarak görüyoruz.
         </p>
 
         {/* marka renkli ince ayraç */}
@@ -92,35 +131,8 @@ export default function Arsalar() {
                 items={data}
               />
 
-              {/* SEO metni + CTA */}
-              <div className="mt-6 text-sm leading-relaxed text-gray-700">
-                <p>
-                  Arsa seçiminde imar planı, emsal, yol/altyapı ve kamu
-                  yatırımları önemlidir. İhtiyacınıza göre konum, metrekare ve
-                  bütçe dengesini kurup en uygun alternatifleri sunuyoruz.
-                </p>
-                <div className="mt-3">
-                  <a
-                    href="#iletisim"
-                    className="inline-flex items-center gap-2 rounded-xl bg-[#C32C31] px-4 py-2 text-white shadow-sm hover:bg-[#B0282C] focus:outline-none focus:ring-2 focus:ring-[#C32C31]/30"
-                  >
-                    Bizimle İletişime Geçin
-                    <svg
-                      className="w-4 h-4"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      aria-hidden="true"
-                    >
-                      <path
-                        d="M9 5l7 7-7 7"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                      />
-                    </svg>
-                  </a>
-                </div>
-              </div>
+              {/* UI'da görünmeyen SEO JSON-LD */}
+              <ArsalarSeoJsonLd items={data} />
             </>
           ) : (
             <div className="rounded-2xl border border-[#C32C31]/20 bg-white/80 backdrop-blur p-6 text-gray-700">

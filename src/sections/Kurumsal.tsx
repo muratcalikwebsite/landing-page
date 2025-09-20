@@ -1,6 +1,12 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, type ReactNode } from "react";
 import Modal from "../components/Modal";
 import portrait from "../assets/images/muratcalik.jpg";
+
+// KİTAP KAPAKLARI (assets/books)
+import rekabetBook from "../assets/books/rekabetBook.jpg";
+import baklavaBook from "../assets/books/baklavaBook.jpg";
+import baklava2Book from "../assets/books/baklava2Book.jpg";
+import dogruBook from "../assets/books/dogruBook.jpg";
 
 type Publication = {
   id: number;
@@ -20,52 +26,63 @@ export default function Kurumsal() {
   // İçerik: SEO dostu kısa metinler
   const bioExcerpt = useMemo(
     () =>
-      "Murat Çalık; Tekirdağ Marmaraereğlisi ve çevresinde arsa geliştirme ve gayrimenkul projelerine odaklanır. Bölgesel deneyim, şeffaf süreç yönetimi ve sürdürülebilir değer yaklaşımıyla yatırımcılara uçtan uca çözüm sunar.",
+      "Çıraklıktan işverenliğe uzanan bu süreçte en önemli faktörün “dürüst çalışmak, mesleğe saygı duymak ve işini sevmek” olduğunu sürekli dile getiren Murat Çalık, MÇ İnşaat Yatırım Gayrimenkul Grubu olarak; 30 yıldır inşaat ve arsa sektöründe yaptığı yatırımlarla Türkiye’nin önemli yatırım gruplarından biri haline gelmiştir.",
     []
   );
 
-  const aboutExcerpt = useMemo(
-    () =>
-      "Bölgenin imar, altyapı ve ulaşım dinamiklerine hâkim ekibimiz; arsa alım-satımı, değerleme, fizibilite ve proje geliştirme süreçlerinde danışmanlık sağlar. Doğru konum, metrekare ve bütçe dengesiyle güvenilir yatırım imkânları yaratır.",
+  const aboutExcerpt = useMemo<ReactNode>(
+    () => (
+      <>
+        MÇ İnşaat Yatırım Gayrimenkul Grubu 30 yıldır inşaat ve arsa sektöründe
+        yaptığı yatırımlarla Türkiye’nin önemli yatırım gruplarından biri haline
+        gelmiştir. MÇ İnşaat &amp; Arsa bugüne kadar yüksek kaliteli yüzlerce
+        daire ve birçok lüks villa perakende birimleri inşa etti ve
+        yatırımlarına devam etmektedir.
+        <span className="block text-base font-semibold text-[#151618] mt-4">
+          Vizyonumuz
+        </span>
+        <span className="block">
+          Temeli insana ve doğaya saygı olan, bireyin doğallığıyla bağını
+          koparmadan modernlik, mimari ve teknolojiden üst düzeyde
+          faydalanmasını sağlamak ve bu sayede Yaşam Mimarlığı felsefemizi, tüm
+          dünyaya örnek oluşturacağımızı gözden kaçırmadan yaşam pratiğine
+          aktarmak. Mevcut coğrafyamızın sunduğu doğal güzellikleri evrensel
+          olarak paylaşmaya imkân veren projeler geliştirmek.
+        </span>
+      </>
+    ),
     []
   );
 
+  // Sıra: dogruBook → rekabetBook → baklava2Book (Hayattan Tatlı Al) → baklavaBook (Hayat Başardıkça Tatlanır)
   const publications: Publication[] = [
     {
       id: 1,
-      title: "Bölgesel Arsa Piyasası Analizi",
+      title: "Doğru İnsan Doğru Zaman Doğru İş",
       summary:
-        "Marmaraereğlisi’nde arsa arz-talep dengesi ve fiyat dinamiklerine genel bakış.",
+        "Biz her işi yaparız değil, biz şu işi çok iyi yaparız devri. Bundan böyle, piyasayı doğru okuyan, gelecekte ortaya çıkabilecek iş kolları üzerinde de fikirler geliştirebilecek çok profesyonellerin devri geliyor. Elbette, doğru iş, doğru zaman, doğru insan denklemi hiçbir zaman sona ermeyecek. Bu denklemi çözebilen şirketler, önümüzdeki çağa damgasını vuracak. Bir şirket yöneticisi olarak, herkese tavsiyem şudur: “Ne iş yapıyorsanız yapın, en iyisini yapın. Bir konuda uzmanlaşın ve bu sahada yenilikleri takip edin, rekabet ettiğiniz alanda eşsiz olmaya bakın…”",
+      cover: dogruBook,
     },
     {
       id: 2,
-      title: "İmar ve Altyapı Rehberi",
+      title: "Rekabetin ABC’si",
       summary:
-        "Yatırım öncesi imar planı, emsal, yol ve altyapı kontrolleri için pratik kontrol listesi.",
+        "1988’lerde babamın şu öğüdünü hiç unutmam! Oğlum “Çok satarak değil, ikramla para kazanmalısın” demişti, tam 37 yıl önce… Ben babamın bu öğüdünü 37 yıldır hem uyguladım hem de yüzlerce çalışanıma, konferanslarımda binlerce insana, eğitim seminerlerimde yüzlerce danışanıma anlatmışımdır.",
+      cover: rekabetBook,
     },
     {
       id: 3,
-      title: "Ulaşım ve Erişilebilirlik",
+      title: "Hayattan (Tat)lı Al",
       summary:
-        "Bölgedeki ana ulaşım aksları ve planlanan yatırımların değere etkisi.",
+        "Yıl 2025 şu anda Türkiye’nin her yerinde 300’e yakın üniversite var. Bu üniversitelerden milyonlarca gencimiz mezun oluyor. Peki, ne oluyorlar? Birçoğu diplomalı işsiz. İşte ben gençlerimizin diplomalarını alıncaya kadar iş kuramıyorlarsa ömür boyu saat kurarlar diyorum. Rahmetli Kemal Sunal, Marmara Üniversitesi’nden gazetecilik bölümünden mezundu. Rahmetli Cüneyt Arkın ise doktordu. Diplomamızı alıncaya kadar bir yerlerde çalışarak kendimizi yetiştirmemiz gerekir, bir şeyler öğrenmemiz gerekir. Diploma bizlere bir şeyler kazandırmaz. Mezun olduğumuz okulla ilgili bir iş yapmak yerine belki başka bir sektöre geçiş yapabiliriz… Baklavacılık yapabiliriz, hayvan alıp satabiliriz…",
+      cover: baklava2Book,
     },
     {
       id: 4,
-      title: "Yatırımda Risk Yönetimi",
+      title: "Hayat Başardıkça Tatlanır",
       summary:
-        "Arsa yatırımında hukuki, teknik ve finansal riskleri azaltma yaklaşımları.",
-    },
-    {
-      id: 5,
-      title: "Projelerde Şeffaf Süreç",
-      summary:
-        "Zaman çizelgesi, izinler ve raporlama standartlarıyla şeffaf yönetim modeli.",
-    },
-    {
-      id: 6,
-      title: "Sürdürülebilir Değer Yaklaşımı",
-      summary:
-        "Uzun vadeli değer üretimi için çevresel ve sosyal faktörlerin dikkate alınması.",
+        "“Hayat başardıkça tatlanır” Acı tecrübelerimiz olacak, riskler olacak, ayağımıza taşlar takılacak… Ama hiçbir zaman pes etmeyeceğiz. Yeniden ayağa kalkacak direnci bulacağız, silkineceğiz… Yaşadığımız hiçbir tecrübe bizim için yabana atılacak bir değer olarak görülmemelidir. Çünkü bu tecrübeler hayatımızı şekillendiren, bizlere yeni yol haritaları çizen ayrıntılardır. Bu sebeple marka değerimizi belirleyen unsurların arkasın da bizim yıllarca bu marka değerine verdiğimiz emek yatıyor, heyecan yatıyor. Hayatımızın başardıkça tatlanacağı süreci elbette biz şekillendireceğiz.",
+      cover: baklavaBook,
     },
   ];
 
@@ -139,12 +156,6 @@ export default function Kurumsal() {
         <h2 id="kurumsal-title" className="text-2xl md:text-3xl font-semibold">
           Kurumsal
         </h2>
-        <p className="mt-1 text-sm text-gray-600">
-          Marmaraereğlisi ve çevresinde arsa geliştirme ve gayrimenkul
-          projelerinde şeffaf, veri odaklı ve sürdürülebilir bir yaklaşım. Doğru
-          yatırım için imar, altyapı ve ulaşım kriterlerini birlikte ele
-          alıyoruz.
-        </p>
         <div className="mt-3 h-1 w-28 rounded-full bg-gradient-to-r from-[#C32C31] via-[#CEBEBF] to-transparent" />
       </div>
 
@@ -156,7 +167,7 @@ export default function Kurumsal() {
             <img
               src={portrait}
               alt="Murat Çalık portresi — Tekirdağ Marmaraereğlisi'nde arsa geliştirme ve gayrimenkul projeleri"
-              className="h-48 w-full object-cover"
+              className="h-40 w-full object-cover"
               loading="lazy"
               decoding="async"
             />
@@ -168,51 +179,61 @@ export default function Kurumsal() {
 
         {/* Biz Kimiz */}
         <Card>
-          <h3 className="font-semibold text-lg mb-2">Biz Kimiz?</h3>
-          <p className="text-sm text-gray-700">{aboutExcerpt}</p>
+          <h3 className="font-semibold text-lg mb-2">Hakkımızda</h3>
+          <div className="text-sm text-gray-700">{aboutExcerpt}</div>
           <PillButton onClick={() => setAboutOpen(true)}>Devamı</PillButton>
         </Card>
 
         {/* Yayınlar */}
         <Card>
           <h3 className="font-semibold text-lg mb-3">Yayınlarımız</h3>
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-2 gap-4">
             {publications.map((p, idx) => (
               <button
                 key={p.id}
                 onClick={() => openPub(idx)}
                 aria-label={`${p.title} detayını aç`}
                 title={p.title}
-                className="group relative rounded-lg overflow-hidden aspect-square bg-gray-100
-                           ring-1 ring-gray-200 hover:ring-gray-300 transition focus:outline-none focus:ring-2 focus:ring-gray-300"
+                className="group relative rounded-lg overflow-hidden aspect-[3/4] bg-gray-100
+                 ring-1 ring-gray-200 hover:ring-gray-300 transition focus:outline-none focus:ring-2 focus:ring-gray-300"
               >
-                <div className="absolute inset-0 grid place-items-center text-gray-400">
-                  <svg
-                    className="w-6 h-6"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    aria-hidden="true"
-                  >
-                    <rect
-                      x="4"
-                      y="4"
-                      width="16"
-                      height="16"
-                      rx="2"
-                      stroke="currentColor"
-                      strokeWidth="1.6"
-                    />
-                    <path
-                      d="M8 14l3-3 3 3 2-2 2 2"
-                      stroke="currentColor"
-                      strokeWidth="1.6"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </div>
-                {/* Başlık overlay (UX) */}
-                <div className="absolute inset-x-0 bottom-0 bg-white/80 backdrop-blur px-2 py-1 text-[12px] text-gray-700 line-clamp-2">
+                {p.cover ? (
+                  <img
+                    src={p.cover}
+                    alt={`${p.title} kapak`}
+                    className="absolute inset-0 h-full w-full object-cover"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ) : (
+                  <div className="absolute inset-0 grid place-items-center text-gray-400">
+                    <svg
+                      className="w-6 h-6"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      aria-hidden="true"
+                    >
+                      <rect
+                        x="4"
+                        y="4"
+                        width="16"
+                        height="16"
+                        rx="2"
+                        stroke="currentColor"
+                        strokeWidth="1.6"
+                      />
+                      <path
+                        d="M8 14l3-3 3 3 2-2 2 2"
+                        stroke="currentColor"
+                        strokeWidth="1.6"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </div>
+                )}
+                {/* Başlık overlay */}
+                <div className="absolute inset-x-0 bottom-0 bg-white/85 backdrop-blur px-2 py-1 text-[13px] font-medium text-gray-800 line-clamp-2">
                   {p.title}
                 </div>
               </button>
@@ -229,10 +250,41 @@ export default function Kurumsal() {
       >
         <div className="prose prose-sm max-w-none text-gray-700">
           <p>
-            {bioExcerpt} Yatırım öncesi süreçte konum analizi, imar ve altyapı
-            kontrolleri, değerleme ve fizibilite başlıklarında danışmanlık
-            sunar; proje geliştirme aşamalarında şeffaf raporlama ve yerinde
-            inceleme imkânı sağlar.
+            {bioExcerpt} MÇ İnşaat &amp; Arsa Grubu ile bugüne kadar yüksek
+            kaliteli yüzlerce daire ve birçok lüks villa perakende birimleri
+            inşa etti ve yatırımlarına devam etmektedir. &quot;
+            <br />
+            <br />
+            MÇ İnşaat Yatırım Gayrimenkul Grubu’nun” yanı sıra Baklavacılık ve
+            Hayvancılık ile ticaret grubuna sürekli farklı sektörler katmaya
+            devam etmektedir. 1985 yılında geniş çaplı bir şirketin içerisinde
+            farklı departmanlarda üretim ve yönetim kademesinde yer alan Murat
+            Çalık, aynı zamanda farklı sivil toplum örgütleri bünyesinde de
+            aktif roller üstlenmiştir. 5 yıl İTO - İstanbul Ticaret Odası Meclis
+            Üyeliği, 5 yıl YİMDER - Yönetici, İdareci ve Müşavirler Derneği
+            İstanbul il Başkan Yardımcılığı, 3 yıl ÜSİAD - Üretken Sanayici ve
+            İş Adamları Derneği Genel Başkan Yardımcılığı, 6 yıl TÜMSİAD - Tüm
+            Sanayici ve İş Adamları Derneği Kurucu Genel Başkan Yardımcılığı,
+            TÜMKOG Eğitim Gönüllüleri Derneği Kurucu Başkanlığı ve İŞDER - İş
+            Dünyası Derneği Kurucu Başkanlığı görevlerinde bulunan Murat Çalık,
+            iş adamlarına yönelik olarak “Kişisel gelişim ve mesleki açılımlar”
+            seminerleri ve konferanslarında da konuşmacı olarak, birikimlerini
+            kamuoyuyla paylaşmaktadır.
+            <br />
+            <br />
+            Türk insanının düşünce, duygu ve davranışlarını bilimsel psikoloji
+            kavramları içinde inceleyen Murat Çalık, kişisel gelişim, baklava,
+            inşaat ve gıda sektörleri ile ilgili 4 ayrı kitap yazmış ve kamuoyu
+            ile eserlerini paylaşmıştır. Kendi hayatından örnekler ile kaleme
+            aldığı ve gençlere yönelik yeni yazdığı “Otobiyografi Konulu” 5’nci
+            kişisel gelişim kitabını da okuyucuları ile bir kez daha
+            buluşturmuştur.
+            <br />
+            <br />
+            Kendi sektöründe veya yan sektörlerde faaliyet gösteren birçok
+            işletmeye aktif olarak danışmanlık da yapan Murat Çalık, aynı
+            zamanda kendi alanında bir gazetenin de imtiyaz sahipliğini
+            yürütmektedir.
           </p>
         </div>
       </Modal>
@@ -240,15 +292,88 @@ export default function Kurumsal() {
       <Modal
         open={aboutOpen}
         onClose={() => setAboutOpen(false)}
-        title="Biz Kimiz?"
+        title="Hakkımızda"
       >
+        {/* İSTENEN BAŞLIKLAR VE METİNLER */}
         <div className="prose prose-sm max-w-none text-gray-700">
+          {aboutExcerpt}
+          <h4 className="text-base font-semibold text-[#151618] mt-5">
+            Misyonumuz
+          </h4>
           <p>
-            {aboutExcerpt} Süreçlerimiz; ön analiz, hukuki/teknik doğrulamalar,
-            planlama ve uygulama etaplarıyla ilerler. Amaç, yatırım
-            hedeflerinize uygun şekilde riskleri azaltarak uzun vadeli değer
-            üretmektir.
+            İnsanın ilk çağlardan beri süregelen yuva ihtiyacını, ona doğal ve
+            modern olanaklarla çevrelenmiş olarak sunmak. Öncelikle sosyal,
+            sportif ve kültürel aktivitelerle bağını eksiksiz kurarak, doğal
+            yuva ihtiyacını sağlam bir zemine oturtmak. Sonra modernlik, mimari
+            mükemmellik ve teknolojinin akıllı kullanımıyla insanı geleceğe
+            taşımak ve böylelikle yüceltmek.
           </p>
+
+          <h4 className="text-base font-semibold text-[#151618] mt-5">
+            MÇ İnşaat Yatırım Gayrimenkul Grubu Değerleri
+          </h4>
+          <p>
+            MÇ İnşaat &amp; Arsa Marka Değerleri, faaliyet gösterdiğimiz
+            sektörde, birlikte çalıştığımız müşterilerimize ve iş ortaklarımıza
+            kattıklarımızla birlikte; koruduklarımız ve geliştirdiklerimiz
+            toplumumuza kattığımız değerlerin bütünüdür.
+          </p>
+          <ul className="list-disc pl-5 mt-2">
+            <li>
+              Sahip olduğumuz tüm kaynakları müşterilerimizin ihtiyaçları,
+              beklentileri ve memnuniyetleri doğrultusunda kullanmak.
+            </li>
+            <li>
+              Projelerimizle şehrin çevresel, tarihsel ve kültürel dokusuna uyum
+              sağlamak.
+            </li>
+            <li>
+              Yönetici kadromuz, teknik ve idari personelimiz ile çağın mimari
+              gereklerini yerine getirerek, hitap edilen toplum değerlerine
+              uygun yaşam alanları üretmek.
+            </li>
+            <li>
+              İleri teknolojiyi, doğru çözüm ortaklarını, kaliteli malzeme
+              kullanımını, titiz mimarlık ve mühendislik hizmetlerini aynı
+              potada eriterek, tüm projelerimize uygulamak.
+            </li>
+            <li>
+              Sürekli üretkenlik politikamızla yeni istihdam alanları yaratarak,
+              ekonomiye katkıda bulunmak.
+            </li>
+            <li>
+              Gerek doğal afetler gerek asayiş açısından güvenli yaşam alanları
+              inşa etmek.
+            </li>
+          </ul>
+
+          <h4 className="text-base font-semibold text-[#151618] mt-5">
+            Sosyal Sorumluluk
+          </h4>
+          <p>
+            Hizmet verdiği tüm alanlarda “değer oluşturma” misyonuyla hareket
+            eden MÇ İnşaat Yatırım Gayrimenkul Grubu, başarılı çalışmalar
+            gerçekleştirirken, topluma karşı üstlendiği görevlerin bilinciyle
+            sosyal sorumluluk projelerine imza atmaktadır. MÇ İnşaat &amp; Arsa
+            başta eğitim gören üniversite öğrencilerine burs, sanat, spor,
+            kültür ve çevreye yaptığı yatırımlarla daha iyi bir toplum, daha iyi
+            bir gelecek ve daha iyi yaşam alanları oluşturmayı hedeflemektedir.
+            Ülkemizde başta okul olmak üzere eğitimci, teknik donanım, malzeme
+            gibi pek çok eksik bulunduğunun bilincinde olan MÇ İnşaat &amp;
+            Arsa, eksiklerin giderilmesi için gerçekleştirdiği projelerle
+            verdiği destek ile evrensel ve ulusal değerlere sahip çıkarak
+            gelecek nesillere katkıda bulunmak için aralıksız çalışmaya devam
+            etmektedir.
+          </p>
+          {/* İmza görseli */}
+          <div className="mt-4 flex justify-end">
+            <img
+              src="/src/assets/images/imza.jpg"
+              alt="Murat Çalık İmza"
+              className="h-12 w-auto object-contain"
+              loading="lazy"
+            />
+          </div>
         </div>
       </Modal>
 
@@ -256,7 +381,7 @@ export default function Kurumsal() {
         open={pubOpen}
         onClose={closePub}
         title={publications[pubIndex]?.title || "Yayın Detayı"}
-        closeOnOutside={false} // yanlışlıkla kapanmasın
+        closeOnOutside={false}
       >
         {/* Üst araç çubuğu */}
         {publications.length > 1 && (
@@ -314,32 +439,46 @@ export default function Kurumsal() {
         {/* İçerik */}
         {publications.length > 0 && (
           <div className="grid gap-4 md:grid-cols-2">
-            <div className="rounded-xl overflow-hidden bg-gray-100 ring-1 ring-gray-200 aspect-[4/3] grid place-items-center text-gray-400">
-              <svg
-                className="w-8 h-8"
-                viewBox="0 0 24 24"
-                fill="none"
-                aria-hidden="true"
-              >
-                <rect
-                  x="4"
-                  y="4"
-                  width="16"
-                  height="16"
-                  rx="2"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
+            {/* Kapak büyük (kırpma olmadan) */}
+            <div className="rounded-xl overflow-hidden bg-gray-100 ring-1 ring-gray-200 aspect-[4/3] grid place-items-center">
+              {publications[pubIndex]?.cover ? (
+                <img
+                  src={publications[pubIndex].cover}
+                  alt={`${publications[pubIndex].title} kapak`}
+                  className="max-h-full max-w-full object-contain"
+                  loading="lazy"
+                  decoding="async"
                 />
-                <path
-                  d="M8 14l3-3 3 3 2-2 2 2"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              ) : (
+                <div className="text-gray-400">
+                  <svg
+                    className="w-8 h-8"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <rect
+                      x="4"
+                      y="4"
+                      width="16"
+                      height="16"
+                      rx="2"
+                      stroke="currentColor"
+                      strokeWidth="1.6"
+                    />
+                    <path
+                      d="M8 14l3-3 3 3 2-2 2 2"
+                      stroke="currentColor"
+                      strokeWidth="1.6"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </div>
+              )}
             </div>
 
+            {/* Metin */}
             <div className="min-w-0">
               {publications[pubIndex].summary ? (
                 <p className="text-sm text-gray-700 leading-relaxed">
