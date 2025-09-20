@@ -15,8 +15,15 @@ export default function App() {
         <Iletisim />
       </main>
       <footer className="border-t bg-[#C32C31] text-white py-5 text-center text-sm">
-        © {new Date().getFullYear()} Bu site SDN Ajans tarafından
-        geliştirilmiştir. <br /> Created by sudenur.tilla2020@gmail.com
+        © {new Date().getFullYear()} Bu site<b> SDN Ajans</b> tarafından
+        geliştirilmiştir. <br />
+        Created by{" "}
+        <a
+          href="mailto:sudenur.tilla2020@gmail.com"
+          className="underline hover:text-gray-200"
+        >
+          İletişim için tıklayın!
+        </a>
       </footer>
     </>
   );

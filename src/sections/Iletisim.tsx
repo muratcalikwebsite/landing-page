@@ -207,11 +207,6 @@ export default function Iletisim() {
         >
           İletişim
         </h2>
-        <p className="mt-1 text-sm text-gray-700">
-          Tekirdağ Marmaraereğlisi ve çevresindeki arsa/proje talepleriniz için
-          bize ulaşın. Telefon, kurumsal hat ve sosyal medya üzerinden hızlı
-          dönüş sağlıyoruz.
-        </p>
         <div className="mt-3 h-1 w-28 rounded-full bg-gradient-to-r from-[#C32C31] via-[#CEBEBF] to-transparent" />
       </header>
 
@@ -320,7 +315,7 @@ export default function Iletisim() {
       <div className="mt-8 flex flex-wrap gap-3">
         <a
           href="https://wa.me/905323704343"
-          className="inline-flex items-center gap-2 rounded-xl bg-[GREEN] px-4 py-2 text-white shadow-sm hover:bg-[darkgreen] focus:outline-none focus:ring-2 focus:ring-[#C32C31]/30"
+          className="inline-flex items-center gap-1 rounded-xl bg-[GREEN] px-2 py-2 text-white shadow-sm hover:bg-[darkgreen] focus:outline-none focus:ring-2 focus:ring-[#C32C31]/30"
           aria-label="WhatsApp üzerinden yazın: 0532 370 43 43"
           rel="noopener noreferrer"
           target="_blank"
@@ -342,7 +337,7 @@ export default function Iletisim() {
         </a>
         <a
           href="tel:+905323704343"
-          className="inline-flex items-center gap-2 rounded-xl border border-[#151618]/15 px-4 py-2 text-[#151618] bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#151618]/20"
+          className="inline-flex items-center gap-1 rounded-xl border border-[#151618]/15 px-2 py-2 text-[#151618] bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#151618]/20"
           aria-label="Telefonla arayın: 0532 370 43 43"
         >
           Hemen Ara

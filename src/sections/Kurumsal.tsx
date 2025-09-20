@@ -1,6 +1,7 @@
 import { useEffect, useState, useMemo, type ReactNode } from "react";
 import Modal from "../components/Modal";
 import portrait from "../assets/images/muratcalik.jpg";
+import signature from "../assets/images/imza.jpg";
 
 // KİTAP KAPAKLARI (assets/books)
 import rekabetBook from "../assets/books/rekabetBook.jpg";
@@ -25,8 +26,15 @@ export default function Kurumsal() {
 
   // İçerik: SEO dostu kısa metinler
   const bioExcerpt = useMemo(
-    () =>
-      "Çıraklıktan işverenliğe uzanan bu süreçte en önemli faktörün “dürüst çalışmak, mesleğe saygı duymak ve işini sevmek” olduğunu sürekli dile getiren Murat Çalık, MÇ İnşaat Yatırım Gayrimenkul Grubu olarak; 30 yıldır inşaat ve arsa sektöründe yaptığı yatırımlarla Türkiye’nin önemli yatırım gruplarından biri haline gelmiştir.",
+    () => (
+      <>
+        Çıraklıktan işverenliğe uzanan bu süreçte en önemli faktörün{" "}
+        <b>“dürüst çalışmak, mesleğe saygı duymak ve işini sevmek”</b> olduğunu
+        sürekli dile getiren Murat Çalık, MÇ İnşaat Yatırım Gayrimenkul Grubu
+        olarak; 30 yıldır inşaat ve arsa sektöründe yaptığı yatırımlarla
+        Türkiye’nin önemli yatırım gruplarından biri haline gelmiştir.
+      </>
+    ),
     []
   );
 
@@ -34,10 +42,11 @@ export default function Kurumsal() {
     () => (
       <>
         MÇ İnşaat Yatırım Gayrimenkul Grubu 30 yıldır inşaat ve arsa sektöründe
-        yaptığı yatırımlarla Türkiye’nin önemli yatırım gruplarından biri haline
-        gelmiştir. MÇ İnşaat &amp; Arsa bugüne kadar yüksek kaliteli yüzlerce
-        daire ve birçok lüks villa perakende birimleri inşa etti ve
-        yatırımlarına devam etmektedir.
+        yaptığı yatırımlarla{" "}
+        <b>şehrinin önemli yatırım gruplarından biri haline gelmiştir.</b> MÇ
+        İnşaat &amp; Arsa bugüne kadar yüksek kaliteli yüzlerce daire ve birçok
+        lüks villa perakende birimleri inşa etti ve yatırımlarına devam
+        etmektedir.
         <span className="block text-base font-semibold text-[#151618] mt-4">
           Vizyonumuz
         </span>
@@ -58,7 +67,7 @@ export default function Kurumsal() {
   const publications: Publication[] = [
     {
       id: 1,
-      title: "Doğru İnsan Doğru Zaman Doğru İş",
+      title: "Doğru İnsan, Doğru Zaman, Doğru İş",
       summary:
         "Biz her işi yaparız değil, biz şu işi çok iyi yaparız devri. Bundan böyle, piyasayı doğru okuyan, gelecekte ortaya çıkabilecek iş kolları üzerinde de fikirler geliştirebilecek çok profesyonellerin devri geliyor. Elbette, doğru iş, doğru zaman, doğru insan denklemi hiçbir zaman sona ermeyecek. Bu denklemi çözebilen şirketler, önümüzdeki çağa damgasını vuracak. Bir şirket yöneticisi olarak, herkese tavsiyem şudur: “Ne iş yapıyorsanız yapın, en iyisini yapın. Bir konuda uzmanlaşın ve bu sahada yenilikleri takip edin, rekabet ettiğiniz alanda eşsiz olmaya bakın…”",
       cover: dogruBook,
@@ -72,7 +81,7 @@ export default function Kurumsal() {
     },
     {
       id: 3,
-      title: "Hayattan (Tat)lı Al",
+      title: "Hayattan Tat(lı) Al",
       summary:
         "Yıl 2025 şu anda Türkiye’nin her yerinde 300’e yakın üniversite var. Bu üniversitelerden milyonlarca gencimiz mezun oluyor. Peki, ne oluyorlar? Birçoğu diplomalı işsiz. İşte ben gençlerimizin diplomalarını alıncaya kadar iş kuramıyorlarsa ömür boyu saat kurarlar diyorum. Rahmetli Kemal Sunal, Marmara Üniversitesi’nden gazetecilik bölümünden mezundu. Rahmetli Cüneyt Arkın ise doktordu. Diplomamızı alıncaya kadar bir yerlerde çalışarak kendimizi yetiştirmemiz gerekir, bir şeyler öğrenmemiz gerekir. Diploma bizlere bir şeyler kazandırmaz. Mezun olduğumuz okulla ilgili bir iş yapmak yerine belki başka bir sektöre geçiş yapabiliriz… Baklavacılık yapabiliriz, hayvan alıp satabiliriz…",
       cover: baklava2Book,
@@ -149,7 +158,7 @@ export default function Kurumsal() {
       id="kurumsal"
       role="region"
       aria-labelledby="kurumsal-title"
-      className="max-w-7xl mx-auto px-4 md:px-8 lg:px-12 pb-12 scroll-mt-20"
+      className="max-w-7xl mx-auto px-4 md:px-8 lg:px-12 pb-12 pt-4 scroll-mt-20"
     >
       {/* Başlık */}
       <div className="mb-8">
@@ -187,15 +196,27 @@ export default function Kurumsal() {
         {/* Yayınlar */}
         <Card>
           <h3 className="font-semibold text-lg mb-3">Yayınlarımız</h3>
-          <div className="grid grid-cols-2 gap-4">
-            {publications.map((p, idx) => (
+          <p className="text-sm text-gray-700 mt-1 mb-4">
+            Türk insanının düşünce, duygu ve davranışlarını bilimsel psikoloji
+            kavramları içinde inceleyen Murat Çalık, kişisel gelişim, baklava,
+            inşaat ve gıda sektörleri ile ilgili{" "}
+            <b>kitaplar yazmış ve kamuoyu ile eserlerini paylaşmıştır.</b>
+          </p>
+
+          {(() => {
+            const firstRow = publications.slice(0, 3);
+            const secondRow = publications.slice(3, 5);
+
+            const CardButton = ({ p, idx }: { p: any; idx: number }) => (
               <button
-                key={p.id}
+                key={p.id ?? idx}
                 onClick={() => openPub(idx)}
                 aria-label={`${p.title} detayını aç`}
                 title={p.title}
-                className="group relative rounded-lg overflow-hidden aspect-[3/4] bg-gray-100
-                 ring-1 ring-gray-200 hover:ring-gray-300 transition focus:outline-none focus:ring-2 focus:ring-gray-300"
+                className="group relative rounded-lg overflow-hidden bg-gray-100
+                  ring-1 ring-gray-200 hover:ring-gray-300 transition
+                  focus:outline-none focus:ring-2 focus:ring-gray-300
+                  aspect-square w-full"
               >
                 {p.cover ? (
                   <img
@@ -237,8 +258,30 @@ export default function Kurumsal() {
                   {p.title}
                 </div>
               </button>
-            ))}
-          </div>
+            );
+
+            return (
+              <div className="space-y-4">
+                {/* 1. Satır: 3 kitap */}
+                <div className="grid grid-cols-3 gap-4">
+                  {firstRow.map((p, i) => (
+                    <CardButton p={p} idx={i} key={p.id ?? i} />
+                  ))}
+                </div>
+
+                {/* 2. Satır: 2 kitap (ortalanmış) */}
+                <div className="grid grid-cols-2 gap-4 md:w-2/3 mx-auto">
+                  {secondRow.map((p, i) => (
+                    <CardButton
+                      p={p}
+                      idx={i + firstRow.length}
+                      key={p.id ?? i}
+                    />
+                  ))}
+                </div>
+              </div>
+            );
+          })()}
         </Card>
       </div>
 
@@ -260,30 +303,38 @@ export default function Kurumsal() {
             devam etmektedir. 1985 yılında geniş çaplı bir şirketin içerisinde
             farklı departmanlarda üretim ve yönetim kademesinde yer alan Murat
             Çalık, aynı zamanda farklı sivil toplum örgütleri bünyesinde de
-            aktif roller üstlenmiştir. 5 yıl İTO - İstanbul Ticaret Odası Meclis
-            Üyeliği, 5 yıl YİMDER - Yönetici, İdareci ve Müşavirler Derneği
-            İstanbul il Başkan Yardımcılığı, 3 yıl ÜSİAD - Üretken Sanayici ve
-            İş Adamları Derneği Genel Başkan Yardımcılığı, 6 yıl TÜMSİAD - Tüm
-            Sanayici ve İş Adamları Derneği Kurucu Genel Başkan Yardımcılığı,
-            TÜMKOG Eğitim Gönüllüleri Derneği Kurucu Başkanlığı ve İŞDER - İş
-            Dünyası Derneği Kurucu Başkanlığı görevlerinde bulunan Murat Çalık,
-            iş adamlarına yönelik olarak “Kişisel gelişim ve mesleki açılımlar”
+            aktif roller üstlenmiştir. 5 yıl <b>İTO</b> - İstanbul Ticaret Odası
+            Meclis Üyeliği, 5 yıl <b>YİMDER</b> - Yönetici, İdareci ve
+            Müşavirler Derneği İstanbul il Başkan Yardımcılığı, 3 yıl{" "}
+            <b>ÜSİAD</b> - Üretken Sanayici ve İş Adamları Derneği Genel Başkan
+            Yardımcılığı, 6 yıl <b>TÜMSİAD</b> - Tüm Sanayici ve İş Adamları
+            Derneği Kurucu Genel Başkan Yardımcılığı,
+            <b>TÜMKOG</b> Eğitim Gönüllüleri Derneği Kurucu Başkanlığı ve{" "}
+            <b>İŞDER</b> - İş Dünyası Derneği Kurucu Başkanlığı görevlerinde
+            bulunan Murat Çalık, iş adamlarına yönelik olarak{" "}
+            <b>“Kişisel gelişim ve mesleki açılımlar”</b>
             seminerleri ve konferanslarında da konuşmacı olarak, birikimlerini
             kamuoyuyla paylaşmaktadır.
             <br />
             <br />
             Türk insanının düşünce, duygu ve davranışlarını bilimsel psikoloji
             kavramları içinde inceleyen Murat Çalık, kişisel gelişim, baklava,
-            inşaat ve gıda sektörleri ile ilgili 4 ayrı kitap yazmış ve kamuoyu
-            ile eserlerini paylaşmıştır. Kendi hayatından örnekler ile kaleme
-            aldığı ve gençlere yönelik yeni yazdığı “Otobiyografi Konulu” 5’nci
-            kişisel gelişim kitabını da okuyucuları ile bir kez daha
-            buluşturmuştur.
+            inşaat ve gıda sektörleri ile ilgili{" "}
+            <b>
+              4 ayrı kitap yazmış ve kamuoyu ile eserlerini paylaşmıştır.
+            </b>{" "}
+            Kendi hayatından örnekler ile kaleme aldığı ve gençlere yönelik yeni
+            yazdığı “Otobiyografi Konulu”{" "}
+            <b>
+              5’nci kişisel gelişim kitabını da okuyucuları ile bir kez daha
+              buluşturmuştur.
+            </b>
             <br />
             <br />
             Kendi sektöründe veya yan sektörlerde faaliyet gösteren birçok
             işletmeye aktif olarak danışmanlık da yapan Murat Çalık, aynı
-            zamanda kendi alanında bir gazetenin de imtiyaz sahipliğini
+            zamanda kendi alanında bir gazetenin de <b>imtiyaz sahipliğini </b>
+            {""}
             yürütmektedir.
           </p>
         </div>
@@ -320,17 +371,21 @@ export default function Kurumsal() {
           </p>
           <ul className="list-disc pl-5 mt-2">
             <li>
-              Sahip olduğumuz tüm kaynakları müşterilerimizin ihtiyaçları,
-              beklentileri ve memnuniyetleri doğrultusunda kullanmak.
+              <b>
+                Sahip olduğumuz tüm kaynakları müşterilerimizin ihtiyaçları,
+                beklentileri ve memnuniyetleri doğrultusunda kullanmak.
+              </b>
             </li>
             <li>
               Projelerimizle şehrin çevresel, tarihsel ve kültürel dokusuna uyum
               sağlamak.
             </li>
             <li>
-              Yönetici kadromuz, teknik ve idari personelimiz ile çağın mimari
-              gereklerini yerine getirerek, hitap edilen toplum değerlerine
-              uygun yaşam alanları üretmek.
+              <b>
+                Yönetici kadromuz, teknik ve idari personelimiz ile çağın mimari
+                gereklerini yerine getirerek, hitap edilen toplum değerlerine
+                uygun yaşam alanları üretmek.
+              </b>
             </li>
             <li>
               İleri teknolojiyi, doğru çözüm ortaklarını, kaliteli malzeme
@@ -338,8 +393,10 @@ export default function Kurumsal() {
               potada eriterek, tüm projelerimize uygulamak.
             </li>
             <li>
-              Sürekli üretkenlik politikamızla yeni istihdam alanları yaratarak,
-              ekonomiye katkıda bulunmak.
+              <b>
+                Sürekli üretkenlik politikamızla yeni istihdam alanları
+                yaratarak, ekonomiye katkıda bulunmak.
+              </b>
             </li>
             <li>
               Gerek doğal afetler gerek asayiş açısından güvenli yaşam alanları
@@ -355,9 +412,13 @@ export default function Kurumsal() {
             eden MÇ İnşaat Yatırım Gayrimenkul Grubu, başarılı çalışmalar
             gerçekleştirirken, topluma karşı üstlendiği görevlerin bilinciyle
             sosyal sorumluluk projelerine imza atmaktadır. MÇ İnşaat &amp; Arsa
-            başta eğitim gören üniversite öğrencilerine burs, sanat, spor,
-            kültür ve çevreye yaptığı yatırımlarla daha iyi bir toplum, daha iyi
-            bir gelecek ve daha iyi yaşam alanları oluşturmayı hedeflemektedir.
+            <b>
+              {" "}
+              başta eğitim gören üniversite öğrencilerine burs, sanat, spor,
+              kültür ve çevreye yaptığı yatırımlarla daha iyi bir toplum, daha
+              iyi bir gelecek ve daha iyi yaşam alanları oluşturmayı
+              hedeflemektedir.
+            </b>{" "}
             Ülkemizde başta okul olmak üzere eğitimci, teknik donanım, malzeme
             gibi pek çok eksik bulunduğunun bilincinde olan MÇ İnşaat &amp;
             Arsa, eksiklerin giderilmesi için gerçekleştirdiği projelerle
@@ -368,7 +429,7 @@ export default function Kurumsal() {
           {/* İmza görseli */}
           <div className="mt-4 flex justify-end">
             <img
-              src="/src/assets/images/imza.jpg"
+              src={signature}
               alt="Murat Çalık İmza"
               className="h-12 w-auto object-contain"
               loading="lazy"

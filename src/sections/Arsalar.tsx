@@ -48,7 +48,7 @@ export default function Arsalar() {
       id="arsalar"
       role="region"
       aria-labelledby="arsalar-title"
-      className="min-h-screen max-w-7xl mx-auto px-4 md:px-8 lg:px-12 py-2 scroll-mt-20"
+      className="min-h-screen max-w-7xl mx-auto px-4 md:px-8 lg:px-12 pt-4 scroll-mt-20"
     >
       {/* Başlık */}
       <header className="mb-6">
@@ -64,7 +64,7 @@ export default function Arsalar() {
           )}
         </h2>
         <p className="mt-1 text-sm text-gray-700">
-          Arsa Grubumuz olarak, bugüne kadar “Yüksek Kazançlı” Onlarca ailemizi
+          Arsa Grubumuz olarak, bugüne kadar <b>“Yüksek Kazançlı”</b> Onlarca ailemizi
           arsa sahibi yaptık. Kurumsal yapımızla, klasik arsa yatırım anlayışını
           bir adım öteye taşıyarak “Sosyal Arsa” ve “Projeli Arsa” kavramlarını
           yatırım dünyasına kazandırdık. Bu yeni nesil yaklaşım sayesinde,

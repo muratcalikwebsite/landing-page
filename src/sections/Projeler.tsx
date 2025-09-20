@@ -85,14 +85,17 @@ export default function Projeler() {
           )}
         </h2>
         <p className="mt-1 text-sm text-gray-700">
-          Tüm projelerimizde “Her bütçeye uygun” Misyonuyla hareket eden MÇ
-          İnşaat Yatırım Grubu olarak; 30 yıldır 1+1 2+1 3+1 4+1 daireler ve
-          Villa Projelerimiz ile onlarca ailemizi konut sahibi yaptık. Kurumsal
-          yapımızla, klasik inşaat üretimi anlayışını bir adım öteye taşıyarak
-          temeli insan, doğaya saygı, modernlik, mimari ve teknolojiyi yatırım
-          dünyasına kazandırdık. Mevcut coğrafyamızın sunduğu doğal güzellikleri
-          evrensel olarak paylaşmaya imkan veren her bütçeye uygun daireler ve
-          villa projelerimizi üretmeye devam ediyoruz.
+          Tüm projelerimizde <b>“Her bütçeye uygun”</b> Misyonuyla hareket eden
+          MÇ İnşaat Yatırım Grubu olarak; 30 yıldır 1+1 2+1 3+1 4+1 daireler ve {" "}
+          <b>Villa Projelerimiz</b> ile onlarca ailemizi konut sahibi yaptık.
+          Kurumsal yapımızla, klasik inşaat üretimi anlayışını bir adım öteye
+          taşıyarak temeli insan, doğaya saygı, modernlik, mimari ve teknolojiyi
+          yatırım dünyasına kazandırdık. Mevcut coğrafyamızın sunduğu doğal
+          güzellikleri evrensel olarak paylaşmaya imkan veren{" "}
+          <b>
+            her bütçeye uygun daireler ve villa projelerimizi
+            üretmeye devam ediyoruz.
+          </b>
         </p>
 
         <div className="mt-3 h-1 w-28 rounded-full bg-gradient-to-r from-[#C32C31] via-[#CEBEBF] to-transparent" />

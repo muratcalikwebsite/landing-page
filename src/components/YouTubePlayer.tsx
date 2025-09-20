@@ -74,9 +74,9 @@ export default function YouTubePlayer({ youtubeId, title, maxWidth = 220 }: Prop
         className="absolute inset-0 w-full h-full"
       />
       {/* İpucu katmanı (isteğe bağlı) */}
-      <div className="pointer-events-none absolute bottom-1 right-1 rounded-md bg-black/40 px-2 py-1 text-[10px] text-white">
+      {/* <div className="pointer-events-none absolute bottom-1 right-1 rounded-md bg-black/40 px-2 py-1 text-[10px] text-white">
         Dokun/Tıkla: Tam ekran + Ses
-      </div>
+      </div> */}
     </div>
   );
 }

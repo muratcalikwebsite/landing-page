@@ -97,7 +97,7 @@ export default function Header() {
       </h1>
 
       <div
-        className="max-w-7xl mx-auto px-4 h-32 grid grid-cols-3 items-center"
+        className="max-w-7xl mx-auto px-4 h-38 grid grid-cols-3 items-center"
         style={{ paddingTop: "env(safe-area-inset-top)" }}
       >
         <div className="block md:hidden" aria-hidden="true" />
@@ -113,7 +113,7 @@ export default function Header() {
             <img
               src={logo}
               alt="Murat Çalık — Tekirdağ Marmaraereğlisi arsalar ve projeler"
-              className="h-20 w-auto object-contain"
+              className="h-28 w-auto object-contain"
             />
           </a>
         </div>
@@ -129,7 +129,7 @@ export default function Header() {
             <img
               src={logo}
               alt="Murat Çalık — Tekirdağ Marmaraereğlisi arsalar ve projeler"
-              className="mt-2 h-25 w-auto object-contain"
+              className="mt-2 h-29 w-auto object-contain"
             />
           </a>
         </div>
