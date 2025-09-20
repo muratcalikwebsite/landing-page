@@ -1,16 +1,19 @@
-import { useRef, useMemo } from "react";
+import { useRef, useMemo, useState } from "react";
 
 type Props = {
   youtubeId: string;
   title?: string;
   maxWidth?: number; // px
-  maskTopPx?: number; // kullanılmıyor
 };
 
-export default function YouTubePlayer({ youtubeId, title, maxWidth = 220 }: Props) {
+export default function YouTubePlayer({
+  youtubeId,
+  title,
+  maxWidth = 220,
+}: Props) {
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
+  const [muted, setMuted] = useState(true);
 
-  // Tek yerde parametreleri üretelim
   const src = useMemo(() => {
     const base = `https://www.youtube.com/embed/${youtubeId}`;
     const params = new URLSearchParams({
@@ -18,52 +21,44 @@ export default function YouTubePlayer({ youtubeId, title, maxWidth = 220 }: Prop
       modestbranding: "1",
       playsinline: "1",
       autoplay: "1",
-      mute: "1",             // başlangıçta sessiz (autoplay için gerekli)
+      mute: "1", // başlangıçta sessiz
       loop: "1",
-      playlist: youtubeId,   // loop çalışsın diye
-      controls: "1",         // tam ekranda kontrol lazım
-      fs: "1",               // fullscreen butonu yetkisi
-      enablejsapi: "1",      // postMessage komutları için
+      playlist: youtubeId,
+      controls: "1",
+      fs: "1",
+      enablejsapi: "1",
       origin: window.location.origin,
     });
     return `${base}?${params.toString()}`;
   }, [youtubeId]);
 
-  const goFullscreenAndUnmute = () => {
+  const postMsg = (func: string) =>
+    JSON.stringify({ event: "command", func, args: [] });
+
+  const toggleMute = () => {
     const el = iframeRef.current;
     if (!el) return;
-
-    // 1) Tam ekran iste
     try {
-      // Safari iOS izinlerinde kullanıcı jesti içinde olmalı
-      (el.requestFullscreen || (el as any).webkitRequestFullscreen || (el as any).msRequestFullscreen)?.call(el);
-    } catch {/* yumuşak geç */}
-
-    // 2) Sesi aç + oynat (YouTube Iframe API postMessage)
-    const msg = (func: string) =>
-      JSON.stringify({ event: "command", func, args: [] });
-    try {
-      el.contentWindow?.postMessage(msg("unMute"), "*");
-      el.contentWindow?.postMessage(msg("playVideo"), "*");
-    } catch {/* no-op */}
-  };
-
-  const onKey = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      goFullscreenAndUnmute();
+      if (muted) {
+        el.contentWindow?.postMessage(postMsg("unMute"), "*");
+        el.contentWindow?.postMessage(postMsg("playVideo"), "*");
+      } else {
+        el.contentWindow?.postMessage(postMsg("mute"), "*");
+      }
+      setMuted((m) => !m);
+    } catch {
+      /* no-op */
     }
   };
 
   return (
     <div
-      className="relative overflow-hidden rounded-lg bg-black cursor-pointer"
-      style={{ aspectRatio: "9 / 16", width: `${maxWidth}px`, maxWidth: "100%" }}
-      role="button"
-      tabIndex={0}
-      aria-label={title ? `${title} videosunu tam ekranda aç` : "Videoyu tam ekranda aç"}
-      onClick={goFullscreenAndUnmute}
-      onKeyDown={onKey}
+      className="relative overflow-hidden rounded-lg bg-black"
+      style={{
+        aspectRatio: "9 / 16",
+        width: `${maxWidth}px`,
+        maxWidth: "100%",
+      }}
     >
       <iframe
         ref={iframeRef}
@@ -71,12 +66,24 @@ export default function YouTubePlayer({ youtubeId, title, maxWidth = 220 }: Prop
         title={title ?? "YouTube video"}
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
         allowFullScreen
-        className="absolute inset-0 w-full h-full"
+        className="absolute inset-0 w-full h-full pointer-events-none" // YouTube'a tıklama yok
       />
-      {/* İpucu katmanı (isteğe bağlı) */}
-      {/* <div className="pointer-events-none absolute bottom-1 right-1 rounded-md bg-black/40 px-2 py-1 text-[10px] text-white">
-        Dokun/Tıkla: Tam ekran + Ses
-      </div> */}
+
+      {/* Ses kontrol butonu */}
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          toggleMute();
+        }}
+        className="absolute bottom-4 left-1/2 -translate-x-1/2 z-50 
+             flex items-center gap-1 rounded-full 
+             bg-black/60 backdrop-blur px-3 py-1 
+             text-xs text-white whitespace-nowrap 
+             hover:bg-black/70 active:scale-95 transition"
+        aria-label={muted ? "Sesi aç" : "Sesi kapat"}
+      >
+        {muted ? "🔇 Ses Aç" : "🔊 Ses Kapat"}
+      </button>
     </div>
   );
 }
