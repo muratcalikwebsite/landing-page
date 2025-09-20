@@ -315,7 +315,7 @@ export default function Iletisim() {
       <div className="mt-8 flex flex-wrap gap-3">
         <a
           href="https://wa.me/905323704343"
-          className="inline-flex items-center gap-1 rounded-xl bg-[GREEN] px-2 py-2 text-white shadow-sm hover:bg-[darkgreen] focus:outline-none focus:ring-2 focus:ring-[#C32C31]/30"
+          className="inline-flex items-center gap-1 rounded-xl bg-[green] px-2 py-2 text-white shadow-sm hover:bg-[darkgreen] focus:outline-none focus:ring-2 focus:ring-[#C32C31]/30"
           aria-label="WhatsApp üzerinden yazın: 0532 370 43 43"
           rel="noopener noreferrer"
           target="_blank"

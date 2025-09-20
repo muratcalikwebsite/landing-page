@@ -12,25 +12,25 @@ export default function VideoCarouselGrid({ title, items, autoPlaySec }: Props) 
   if (!items.length) return null;
 
   // Layout sabitleri
-  const GAP = 20;               // kartlar arası boşluk (px) - gap-5
-  const TRACK_PAD_X = 56;       // oklar için soldan/sağdan iç boşluk (px) = pl-14/pr-14
+  const GAP = 20;               // kartlar arası boşluk (px)
+  const TRACK_PAD_X = 56;       // oklar için iç boşluk (pl-14/pr-14)
   const OUTER_PAD_X = 16;       // genel güven payı
   const MAX_CARD_W = 220;
   const MIN_CARD_W = 150;
 
   // refs
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const trackRef = useRef<HTMLDivElement | null>(null);
 
   // responsive durumlar
   const [perPage, setPerPage] = useState(2);
   const [cardW, setCardW] = useState(200);
   const [containerW, setContainerW] = useState<number>(typeof window !== "undefined" ? window.innerWidth : 1200);
 
-  // Container genişliğini canlı izleyelim (kartlar kesilmesin)
+  // Container genişliğini canlı izle
   useEffect(() => {
     const node = containerRef.current;
     if (!node) return;
-
     const ro = new ResizeObserver((entries) => {
       for (const entry of entries) {
         const cw = Math.floor(entry.contentRect.width);
@@ -41,16 +41,13 @@ export default function VideoCarouselGrid({ title, items, autoPlaySec }: Props) 
     return () => ro.disconnect();
   }, []);
 
-  // perPage ve cardW hesabı (ok & padding dahil)
+  // perPage ve cardW hesabı
   useEffect(() => {
     const compute = () => {
-      // XL ve üstü 3, diğerleri 2
       const isXL = window.matchMedia("(min-width: 1280px)").matches;
       const nextPerPage = isXL ? 3 : 2;
       setPerPage(nextPerPage);
 
-      // Kullanılabilir genişlik:
-      // dış güven payı + ok alanı + kartlar arası boşluklar düşülür
       const usable =
         containerW -
         OUTER_PAD_X -
@@ -60,29 +57,81 @@ export default function VideoCarouselGrid({ title, items, autoPlaySec }: Props) 
       const calc = Math.floor(usable / nextPerPage);
       setCardW(Math.max(MIN_CARD_W, Math.min(MAX_CARD_W, calc)));
     };
-
     compute();
   }, [containerW]);
 
-  // Sayfalama
-  const [start, setStart] = useState(0);
-  const getAt = (i: number) => items[(i + items.length) % items.length];
-  const visible = useMemo(
-    () => Array.from({ length: Math.min(perPage, items.length) }, (_, i) => getAt(start + i)),
-    [items, start, perPage]
-  );
-  const prev = () => setStart((s) => (s - perPage + items.length) % items.length);
-  const next = () => setStart((s) => (s + perPage) % items.length);
+  // Drag-to-scroll state
+  const isDownRef = useRef(false);
+  const startXRef = useRef(0);
+  const startScrollRef = useRef(0);
+
+  // Mouse drag
+  const onMouseDown = (e: React.MouseEvent) => {
+    if (!trackRef.current) return;
+    isDownRef.current = true;
+    startXRef.current = e.clientX;
+    startScrollRef.current = trackRef.current.scrollLeft;
+    // drag sırasında text seçimi engelle
+    document.body.style.userSelect = "none";
+    document.body.style.cursor = "grabbing";
+  };
+  const endDrag = () => {
+    isDownRef.current = false;
+    document.body.style.userSelect = "";
+    document.body.style.cursor = "";
+  };
+  const onMouseMove = (e: React.MouseEvent) => {
+    if (!isDownRef.current || !trackRef.current) return;
+    const dx = e.clientX - startXRef.current;
+    trackRef.current.scrollLeft = startScrollRef.current - dx;
+  };
+
+  // Touch drag (mobil)
+  const touchStartX = useRef(0);
+  const touchStartScroll = useRef(0);
+  const onTouchStart = (e: React.TouchEvent) => {
+    if (!trackRef.current) return;
+    touchStartX.current = e.touches[0].clientX;
+    touchStartScroll.current = trackRef.current.scrollLeft;
+  };
+  const onTouchMove = (e: React.TouchEvent) => {
+    if (!trackRef.current) return;
+    const dx = e.touches[0].clientX - touchStartX.current;
+    trackRef.current.scrollLeft = touchStartScroll.current - dx;
+  };
+
+  // Oklar
+  const pageWidth = useMemo(() => perPage * cardW + (perPage - 1) * GAP, [perPage, cardW]);
+  const prev = () => {
+    if (!trackRef.current) return;
+    trackRef.current.scrollBy({ left: -pageWidth, behavior: "smooth" });
+  };
+  const next = () => {
+    if (!trackRef.current) return;
+    trackRef.current.scrollBy({ left: pageWidth, behavior: "smooth" });
+  };
 
   // Autoplay (odak/hover iken dur)
   const [paused, setPaused] = useState(false);
   useEffect(() => {
     if (!autoPlaySec || items.length <= perPage || paused) return;
-    const t = setInterval(next, autoPlaySec * 1000);
+    const t = setInterval(() => {
+      if (!trackRef.current) return;
+      trackRef.current.scrollBy({ left: cardW + GAP, behavior: "smooth" });
+      // sona geldiyse başa sar
+      const el = trackRef.current;
+      const nearEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - (cardW + GAP);
+      if (nearEnd) {
+        // küçük bir gecikmeyle başa al
+        setTimeout(() => {
+          el.scrollTo({ left: 0, behavior: "smooth" });
+        }, 300);
+      }
+    }, autoPlaySec * 1000);
     return () => clearInterval(t);
-  }, [autoPlaySec, items.length, perPage, paused]);
+  }, [autoPlaySec, items.length, perPage, paused, cardW]);
 
-  // Klavye
+  // Klavye ile kaydırma
   const onKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "ArrowLeft") { e.preventDefault(); prev(); }
     if (e.key === "ArrowRight") { e.preventDefault(); next(); }
@@ -90,8 +139,6 @@ export default function VideoCarouselGrid({ title, items, autoPlaySec }: Props) 
 
   // A11y
   const listId = useId();
-  const totalPages = Math.max(1, Math.ceil(items.length / perPage));
-  const currentPage = Math.floor(start / perPage) + 1;
 
   return (
     <div
@@ -127,16 +174,25 @@ export default function VideoCarouselGrid({ title, items, autoPlaySec }: Props) 
           </button>
         )}
 
-        {/* Track: ok alanına çarpmaması için padding, kartların tam görünmesi için overflow-visible */}
+        {/* Track: yatay scroll + drag + snap */}
         <div
           id={listId}
-          className="flex flex-nowrap justify-center gap-5 pl-14 pr-14 overflow-visible"
+          ref={trackRef}
+          className="flex flex-nowrap items-stretch gap-5 pl-14 pr-14 overflow-x-auto overflow-y-visible
+                     scroll-smooth snap-x snap-mandatory cursor-grab active:cursor-grabbing
+                     [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           style={{ paddingLeft: TRACK_PAD_X, paddingRight: TRACK_PAD_X }}
+          onMouseDown={onMouseDown}
+          onMouseUp={endDrag}
+          onMouseLeave={endDrag}
+          onMouseMove={onMouseMove}
+          onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
         >
-          {visible.map((v) => (
+          {items.map((v) => (
             <article
               key={v.id}
-              className="flex flex-col items-center gap-3 shrink-0"
+              className="flex flex-col items-center gap-3 shrink-0 snap-start"
               style={{ width: cardW }}
               itemScope
               itemType="https://schema.org/VideoObject"
@@ -173,13 +229,6 @@ export default function VideoCarouselGrid({ title, items, autoPlaySec }: Props) 
               <path d="M9 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </button>
-        )}
-
-        {/* SR-only sayfa bilgisi */}
-        {items.length > perPage && (
-          <div className="sr-only" aria-live="polite">
-            Sayfa {currentPage} / {totalPages}
-          </div>
         )}
       </div>
     </div>

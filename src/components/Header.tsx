@@ -195,9 +195,11 @@ export default function Header() {
       {/* KOMİSYON YOK şeridi */}
       <div className="bg-[#C32C31] text-white text-center py-2">
         <div className="flex flex-col md:flex-row justify-center items-center font-semibold md:text-base">
-          <span className="uppercase tracking-wide text-lg">"KOMİSYON YOK"</span>
+          <span className="uppercase tracking-wide text-lg">
+            <b>"KOMİSYON YOK"</b>
+          </span>
           <span className="md:ml-2 text-lg">
-            Doğrudan sahibiyle muhatapsınız!
+            Doğrudan Sahibiyle Muhatapsınız!
           </span>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import VideoCarouselGrid from "../components/VideoCarousel";
+import VideoCarousel from "../components/VideoCarousel";
 import { useVideos } from "../features/videos/useVideos";
 import type { VideoDoc } from "../features/videos/types";
 
@@ -16,8 +16,18 @@ function ArsalarSeoJsonLd({ items }: { items: VideoDoc[] }) {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Ana Sayfa", item: "https://example.com" },
-      { "@type": "ListItem", position: 2, name: "Arsalar",  item: "https://example.com/arsalar" },
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Ana Sayfa",
+        item: "https://example.com",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Arsalar",
+        item: "https://example.com/arsalar",
+      },
     ],
   };
 
@@ -25,7 +35,9 @@ function ArsalarSeoJsonLd({ items }: { items: VideoDoc[] }) {
     "@context": "https://schema.org",
     "@type": "VideoObject",
     name: v.title,
-    description: v.description || "Arsa seçimi ve yatırım analizleri hakkında bilgilendirici video.",
+    description:
+      v.description ||
+      "Arsa seçimi ve yatırım analizleri hakkında bilgilendirici video.",
     thumbnailUrl: `https://img.youtube.com/vi/${v.youtubeId}/hqdefault.jpg`,
     embedUrl: `https://www.youtube.com/embed/${v.youtubeId}`,
     publisher: { "@type": "Organization", name: "Arsa Grubu" },
@@ -33,9 +45,18 @@ function ArsalarSeoJsonLd({ items }: { items: VideoDoc[] }) {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(org) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(videos) }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(org) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(videos) }}
+      />
     </>
   );
 }
@@ -54,7 +75,7 @@ export default function Arsalar() {
       <header className="mb-6">
         <h2
           id="arsalar-title"
-          className="text-2xl md:text-3xl font-semibold text-[BLACK]"
+          className="text-2xl md:text-3xl font-semibold text-[black]"
         >
           Arsalarımız
           {!loading && !error && data.length > 0 && (
@@ -64,16 +85,16 @@ export default function Arsalar() {
           )}
         </h2>
         <p className="mt-1 text-sm text-gray-700">
-          Arsa Grubumuz olarak, bugüne kadar <b>“Yüksek Kazançlı”</b> Onlarca ailemizi
-          arsa sahibi yaptık. Kurumsal yapımızla, klasik arsa yatırım anlayışını
-          bir adım öteye taşıyarak “Sosyal Arsa” ve “Projeli Arsa” kavramlarını
-          yatırım dünyasına kazandırdık. Bu yeni nesil yaklaşım sayesinde,
-          sadece bir arsa değil; sosyal yaşam alanlarıyla desteklenmiş, geleceğe
-          dönük yatırım fırsatları sunuyoruz. Arsa Grubumuz olarak yaşamın tam
-          içinde; doğayla uyumlu, sosyal ilişkilerin kurulabildiği, insanların
-          kendilerine ait bir yaşam kurabileceği alanlar oluşturuyoruz. Arsa
-          yatırımlarını sadece maddi kazanç değil, aynı zamanda yaşam kalitesini
-          artıran bir değer olarak görüyoruz.
+          Arsa Grubumuz olarak, bugüne kadar <b>"Yüksek Kazançlı"</b> Onlarca
+          ailemizi arsa sahibi yaptık. Kurumsal yapımızla, klasik arsa yatırım
+          anlayışını bir adım öteye taşıyarak “Sosyal Arsa” ve “Projeli Arsa”
+          kavramlarını yatırım dünyasına kazandırdık. Bu yeni nesil yaklaşım
+          sayesinde, sadece bir arsa değil; sosyal yaşam alanlarıyla
+          desteklenmiş, geleceğe dönük yatırım fırsatları sunuyoruz. Arsa
+          Grubumuz olarak yaşamın tam içinde; doğayla uyumlu, sosyal ilişkilerin
+          kurulabildiği, insanların kendilerine ait bir yaşam kurabileceği
+          alanlar oluşturuyoruz. Arsa yatırımlarını sadece maddi kazanç değil,
+          aynı zamanda yaşam kalitesini artıran bir değer olarak görüyoruz.
         </p>
 
         {/* marka renkli ince ayraç */}
@@ -126,7 +147,7 @@ export default function Arsalar() {
         <>
           {data.length > 0 ? (
             <>
-              <VideoCarouselGrid
+              <VideoCarousel
                 title={`Arsalarımız (${data.length})`}
                 items={data}
               />
