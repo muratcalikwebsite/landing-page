@@ -176,7 +176,7 @@ export default function Kurumsal() {
       className="max-w-7xl mx-auto px-4 md:px-8 lg:px-12 pb-12 pt-4 scroll-mt-20"
     >
       {/* Başlık */}
-      <div className="mb-8">
+      <div className="mb-4">
         <h2 id="kurumsal-title" className="text-2xl md:text-3xl font-semibold">
           Kurumsal
         </h2>
