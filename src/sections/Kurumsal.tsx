@@ -14,6 +14,7 @@ type Publication = {
   title: string;
   summary?: string;
   cover?: string;
+  disabled?: boolean; // tıklanamaz placeholder desteği
 };
 
 export default function Kurumsal() {
@@ -63,7 +64,7 @@ export default function Kurumsal() {
     []
   );
 
-  // Sıra: dogruBook → rekabetBook → baklava2Book (Hayattan Tatlı Al) → baklavaBook (Hayat Başardıkça Tatlanır)
+  // Sıra: dogruBook → rekabetBook → baklava2Book → baklavaBook
   const publications: Publication[] = [
     {
       id: 1,
@@ -83,7 +84,7 @@ export default function Kurumsal() {
       id: 3,
       title: "Hayattan Tat(lı) Al",
       summary:
-        "Yıl 2025 şu anda Türkiye’nin her yerinde 300’e yakın üniversite var. Bu üniversitelerden milyonlarca gencimiz mezun oluyor. Peki, ne oluyorlar? Birçoğu diplomalı işsiz. İşte ben gençlerimizin diplomalarını alıncaya kadar iş kuramıyorlarsa ömür boyu saat kurarlar diyorum. Rahmetli Kemal Sunal, Marmara Üniversitesi’nden gazetecilik bölümünden mezundu. Rahmetli Cüneyt Arkın ise doktordu. Diplomamızı alıncaya kadar bir yerlerde çalışarak kendimizi yetiştirmemiz gerekir, bir şeyler öğrenmemiz gerekir. Diploma bizlere bir şeyler kazandırmaz. Mezun olduğumuz okulla ilgili bir iş yapmak yerine belki başka bir sektöre geçiş yapabiliriz… Baklavacılık yapabiliriz, hayvan alıp satabiliriz…",
+        "Yıl 2025 şu anda Türkiye’nin her yerinde 300’e yakın üniversite var. Bu üniversitelerden milyonlarca gencimiz mezun oluyor. Peki, ne oluyorlar? Birçoğu diplomalı işsiz. İşte ben gençlerimizin diplomalarını alıncaya kadar iş kuramıyorlarsa ömür boyu saat kurarlar diyorum. Rahmetli Kemal Sunal, Marmara Üniversitesi’nden gazetecilik bölümünden mezundu. Rahmetli Cüneyt Arkın ise doktordu. Diplomamızı alıncaya kadar bir yerlerde çalışarak kendimizi yetiştirmemiz gerekir, bir şeyler öğrenmemiz gerekir. Diploma bizlere bir şeyler kazandırmaz. Mezun olduğumuz okulla ilgili bir iş yapmak yerine belki başka bir sektöre geçiş yapabiliriz… Baklavacılık yapabiliriz, hayvan alıp satabiliriz…",
       cover: baklava2Book,
     },
     {
@@ -94,6 +95,20 @@ export default function Kurumsal() {
       cover: baklavaBook,
     },
   ];
+
+  // 5. kutu: imza görselini tıklanamaz placeholder olarak ekle
+  const pubItems = useMemo<Publication[]>(
+    () => [
+      ...publications,
+      {
+        id: 999,
+        title: "İmza",
+        cover: signature, // land-site/src/assets/images/imza.jpg
+        disabled: true,   // tıklanamaz / modal açılmaz
+      },
+    ],
+    [publications]
+  );
 
   const openPub = (index: number) => {
     setPubIndex(index);
@@ -204,72 +219,100 @@ export default function Kurumsal() {
           </p>
 
           {(() => {
-            const firstRow = publications.slice(0, 3);
-            const secondRow = publications.slice(3, 5);
+            const firstRow = pubItems.slice(0, 3);
+            const secondRow = pubItems.slice(3, 5);
 
-            const CardButton = ({ p, idx }: { p: any; idx: number }) => (
-              <button
-                key={p.id ?? idx}
-                onClick={() => openPub(idx)}
-                aria-label={`${p.title} detayını aç`}
-                title={p.title}
-                className="group relative rounded-lg overflow-hidden bg-gray-100
-                  ring-1 ring-gray-200 hover:ring-gray-300 transition
-                  focus:outline-none focus:ring-2 focus:ring-gray-300
-                  aspect-square w-full"
-              >
-                {p.cover ? (
-                  <img
-                    src={p.cover}
-                    alt={`${p.title} kapak`}
-                    className="absolute inset-0 h-full w-full object-cover"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                ) : (
-                  <div className="absolute inset-0 grid place-items-center text-gray-400">
-                    <svg
-                      className="w-6 h-6"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      aria-hidden="true"
-                    >
-                      <rect
-                        x="4"
-                        y="4"
-                        width="16"
-                        height="16"
-                        rx="2"
-                        stroke="currentColor"
-                        strokeWidth="1.6"
+            const CardButton = ({ p, idx }: { p: Publication; idx: number }) => {
+              const isDisabled = p.disabled || idx >= publications.length;
+
+              // TIKLANAMAZ İMZA KARTI: orijinal oran, ortalanmış, tam kaplamaz
+              if (isDisabled) {
+                return (
+                  <div
+                    key={p.id ?? idx}
+                    className="relative rounded-lg overflow-hidden bg-white ring-1 ring-gray-200 aspect-square w-full
+                               flex items-center justify-center cursor-default select-none"
+                    aria-hidden="true"
+                    title={p.title}
+                  >
+                    {p.cover && (
+                      <img
+                        src={p.cover}
+                        alt="İmza placeholder"
+                        className="max-h-[80%] max-w-[80%] object-contain"
+                        loading="lazy"
+                        decoding="async"
                       />
-                      <path
-                        d="M8 14l3-3 3 3 2-2 2 2"
-                        stroke="currentColor"
-                        strokeWidth="1.6"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
+                    )}
                   </div>
-                )}
-                {/* Başlık overlay */}
-                <div className="absolute inset-x-0 bottom-0 bg-white/85 backdrop-blur px-2 py-1 text-[13px] font-medium text-gray-800 line-clamp-2">
-                  {p.title}
-                </div>
-              </button>
-            );
+                );
+              }
+
+              // TIKLANABİLİR KİTAP KARTI
+              return (
+                <button
+                  key={p.id ?? idx}
+                  onClick={() => openPub(idx)} // yalnızca 0..3
+                  aria-label={`${p.title} detayını aç`}
+                  title={p.title}
+                  className="group relative rounded-lg overflow-hidden bg-gray-100
+                             ring-1 ring-gray-200 hover:ring-gray-300 transition
+                             focus:outline-none focus:ring-2 focus:ring-gray-300
+                             aspect-square w-full"
+                >
+                  {p.cover ? (
+                    <img
+                      src={p.cover}
+                      alt={`${p.title} kapak`}
+                      className="absolute inset-0 h-full w-full object-cover"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 grid place-items-center text-gray-400">
+                      <svg
+                        className="w-6 h-6"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        aria-hidden="true"
+                      >
+                        <rect
+                          x="4"
+                          y="4"
+                          width="16"
+                          height="16"
+                          rx="2"
+                          stroke="currentColor"
+                          strokeWidth="1.6"
+                        />
+                        <path
+                          d="M8 14l3-3 3 3 2-2 2 2"
+                          stroke="currentColor"
+                          strokeWidth="1.6"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </div>
+                  )}
+                  {/* Başlık overlay */}
+                  <div className="absolute inset-x-0 bottom-0 bg-white/85 backdrop-blur px-2 py-1 text-[13px] font-medium text-gray-800 line-clamp-2">
+                    {p.title}
+                  </div>
+                </button>
+              );
+            };
 
             return (
               <div className="space-y-4">
-                {/* 1. Satır: 3 kitap */}
+                {/* 1. Satır: 3 kutu */}
                 <div className="grid grid-cols-3 gap-4">
                   {firstRow.map((p, i) => (
                     <CardButton p={p} idx={i} key={p.id ?? i} />
                   ))}
                 </div>
 
-                {/* 2. Satır: 2 kitap (ortalanmış) */}
+                {/* 2. Satır: 2 kutu (ortalanmış) */}
                 <div className="grid grid-cols-2 gap-4 md:w-2/3 mx-auto">
                   {secondRow.map((p, i) => (
                     <CardButton
@@ -337,6 +380,15 @@ export default function Kurumsal() {
             {""}
             yürütmektedir.
           </p>
+          {/* İmza görseli */}
+          <div className="mt-4 flex justify-end">
+            <img
+              src={signature}
+              alt="Murat Çalık İmza"
+              className="h-12 w-auto object-contain"
+              loading="lazy"
+            />
+          </div>
         </div>
       </Modal>
 

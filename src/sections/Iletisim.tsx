@@ -194,7 +194,7 @@ export default function Iletisim() {
       aria-labelledby="iletisim-title"
       itemScope
       itemType="https://schema.org/Organization"
-      className="section max-w-7xl mx-auto px-4 md:px-8 lg:px-12 pb-12 scroll-mt-20"
+      className="section max-w-7xl mx-auto px-4 md:px-8 lg:px-12 pb-5 scroll-mt-20"
     >
       {/* Organization adı (microdata) */}
       <meta itemProp="name" content="Murat Çalık" />
