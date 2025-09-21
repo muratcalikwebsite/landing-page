@@ -33,7 +33,7 @@ export default function Kurumsal() {
         <b>“dürüst çalışmak, mesleğe saygı duymak ve işini sevmek”</b> olduğunu
         sürekli dile getiren Murat Çalık, MÇ İnşaat Yatırım Gayrimenkul Grubu
         olarak; 30 yıldır inşaat ve arsa sektöründe yaptığı yatırımlarla
-        Türkiye’nin önemli yatırım gruplarından biri haline gelmiştir.
+        şehrinin önemli yatırım gruplarından biri haline gelmiştir.
       </>
     ),
     []
@@ -70,7 +70,7 @@ export default function Kurumsal() {
       id: 1,
       title: "Doğru İnsan, Doğru Zaman, Doğru İş",
       summary:
-        "Biz her işi yaparız değil, biz şu işi çok iyi yaparız devri. Bundan böyle, piyasayı doğru okuyan, gelecekte ortaya çıkabilecek iş kolları üzerinde de fikirler geliştirebilecek çok profesyonellerin devri geliyor. Elbette, doğru iş, doğru zaman, doğru insan denklemi hiçbir zaman sona ermeyecek. Bu denklemi çözebilen şirketler, önümüzdeki çağa damgasını vuracak. Bir şirket yöneticisi olarak, herkese tavsiyem şudur: “Ne iş yapıyorsanız yapın, en iyisini yapın. Bir konuda uzmanlaşın ve bu sahada yenilikleri takip edin, rekabet ettiğiniz alanda eşsiz olmaya bakın…”",
+        "Biz her işi yaparız değil, biz şu işi çok iyi yaparız devri. Bundan böyle, piyasayı doğru okuyan, gelecekte ortaya çıkabilecek iş kolları üzerinde de fikirler geliştirebilecek çok profesyonellerin devri geliyor. Elbette, doğru insan, doğru zaman, doğru iş denklemi hiçbir zaman sona ermeyecek. Bu denklemi çözebilen şirketler, önümüzdeki çağa damgasını vuracak. Bir şirket yöneticisi olarak, herkese tavsiyem şudur: “Ne iş yapıyorsanız yapın, en iyisini yapın. Bir konuda uzmanlaşın ve bu sahada yenilikleri takip edin, rekabet ettiğiniz alanda eşsiz olmaya bakın…”",
       cover: dogruBook,
     },
     {
@@ -490,7 +490,7 @@ export default function Kurumsal() {
         </div>
       </Modal>
 
-      <Modal
+            <Modal
         open={pubOpen}
         onClose={closePub}
         title={publications[pubIndex]?.title || "Yayın Detayı"}
@@ -508,19 +508,8 @@ export default function Kurumsal() {
                 className="inline-flex items-center gap-1 rounded-md border border-gray-200 bg-white px-3 py-1.5 hover:bg-gray-50"
                 aria-label="Önceki yayın"
               >
-                <svg
-                  className="w-4 h-4"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M15 19l-7-7 7-7"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M15 19l-7-7 7-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
                 Önceki
               </button>
@@ -530,82 +519,66 @@ export default function Kurumsal() {
                 aria-label="Sonraki yayın"
               >
                 Sonraki
-                <svg
-                  className="w-4 h-4"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M9 5l7 7-7 7"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M9 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </button>
             </div>
           </div>
         )}
 
-        {/* İçerik */}
+        {/* İçerik + sağ-alt imza */}
         {publications.length > 0 && (
-          <div className="grid gap-4 md:grid-cols-2">
-            {/* Kapak büyük (kırpma olmadan) */}
-            <div className="rounded-xl overflow-hidden bg-gray-100 ring-1 ring-gray-200 aspect-[4/3] grid place-items-center">
-              {publications[pubIndex]?.cover ? (
-                <img
-                  src={publications[pubIndex].cover}
-                  alt={`${publications[pubIndex].title} kapak`}
-                  className="max-h-full max-w-full object-contain"
-                  loading="lazy"
-                  decoding="async"
-                />
-              ) : (
-                <div className="text-gray-400">
-                  <svg
-                    className="w-8 h-8"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    aria-hidden="true"
-                  >
-                    <rect
-                      x="4"
-                      y="4"
-                      width="16"
-                      height="16"
-                      rx="2"
-                      stroke="currentColor"
-                      strokeWidth="1.6"
-                    />
-                    <path
-                      d="M8 14l3-3 3 3 2-2 2 2"
-                      stroke="currentColor"
-                      strokeWidth="1.6"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </div>
-              )}
+          <div className="relative pb-14"> 
+            {/* pb-14: imzanın üstünü kapatmamak için ekstra alt boşluk */}
+
+            <div className="grid gap-4 md:grid-cols-2">
+              {/* Kapak büyük (kırpma olmadan) */}
+              <div className="rounded-xl overflow-hidden bg-gray-100 ring-1 ring-gray-200 aspect-[4/3] grid place-items-center">
+                {publications[pubIndex]?.cover ? (
+                  <img
+                    src={publications[pubIndex].cover}
+                    alt={`${publications[pubIndex].title} kapak`}
+                    className="max-h-full max-w-full object-contain"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ) : (
+                  <div className="text-gray-400">
+                    <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <rect x="4" y="4" width="16" height="16" rx="2" stroke="currentColor" strokeWidth="1.6" />
+                      <path d="M8 14l3-3 3 3 2-2 2 2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </div>
+                )}
+              </div>
+
+              {/* Metin */}
+              <div className="min-w-0">
+                {publications[pubIndex].summary ? (
+                  <p className="text-sm text-gray-700 leading-relaxed">
+                    {publications[pubIndex].summary}
+                  </p>
+                ) : (
+                  <p className="text-sm text-gray-500">Bu yayın için açıklama eklenmemiş.</p>
+                )}
+              </div>
             </div>
 
-            {/* Metin */}
-            <div className="min-w-0">
-              {publications[pubIndex].summary ? (
-                <p className="text-sm text-gray-700 leading-relaxed">
-                  {publications[pubIndex].summary}
-                </p>
-              ) : (
-                <p className="text-sm text-gray-500">
-                  Bu yayın için açıklama eklenmemiş.
-                </p>
-              )}
+            {/* Sağ-alt köşe: imza (tam ekran olmasın, orijinal oran, taşmadan) */}
+            <div className="pointer-events-none select-none absolute bottom-3 right-3">
+              <img
+                src={signature}
+                alt="Murat Çalık İmza"
+                className="h-8 md:h-10 w-auto object-contain opacity-95"
+                loading="lazy"
+                decoding="async"
+              />
             </div>
           </div>
         )}
       </Modal>
+
     </section>
   );
 }
