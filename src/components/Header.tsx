@@ -79,7 +79,7 @@ export default function Header() {
 
   return (
     <header
-      className="sticky top-0 z-50 bg-white md:bg-white/80 md:backdrop-blur shadow-none md:shadow"
+      className="sticky top-0 z-[2000] bg-white md:bg-white/80 md:backdrop-blur shadow-none md:shadow"
       style={{
         ["--brand-red" as any]: BRAND_RED,
         ["--brand-dark" as any]: BRAND_DARK,
@@ -206,7 +206,7 @@ export default function Header() {
       {/* Mobile overlay + sheet (blur KALDIRILDI) */}
       <div
         className={[
-          "md:hidden fixed inset-0 z-40 pt-20",
+          "md:hidden fixed inset-0 z-[3000] pt-20",
           "transition-opacity duration-200",
           mobileOpen
             ? "opacity-100 pointer-events-auto"

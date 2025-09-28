@@ -8,6 +8,7 @@ import rekabetBook from "../assets/books/rekabetBook.jpg";
 import baklavaBook from "../assets/books/baklavaBook.jpg";
 import baklava2Book from "../assets/books/baklava2Book.jpg";
 import dogruBook from "../assets/books/dogruBook.jpg";
+import cinarBook from "../assets/books/cinarBook.jpg";
 
 type Publication = {
   id: number;
@@ -94,21 +95,14 @@ export default function Kurumsal() {
         "“Hayat başardıkça tatlanır” Acı tecrübelerimiz olacak, riskler olacak, ayağımıza taşlar takılacak… Ama hiçbir zaman pes etmeyeceğiz. Yeniden ayağa kalkacak direnci bulacağız, silkineceğiz… Yaşadığımız hiçbir tecrübe bizim için yabana atılacak bir değer olarak görülmemelidir. Çünkü bu tecrübeler hayatımızı şekillendiren, bizlere yeni yol haritaları çizen ayrıntılardır. Bu sebeple marka değerimizi belirleyen unsurların arkasın da bizim yıllarca bu marka değerine verdiğimiz emek yatıyor, heyecan yatıyor. Hayatımızın başardıkça tatlanacağı süreci elbette biz şekillendireceğiz.",
       cover: baklavaBook,
     },
+    {
+      id: 5,
+      title: "Çınarın Gölgesinde",
+      summary:
+        "“Babamın izinde girişimcilik”\n\n“Baba saygıdan beslenir...” Başarı, bereket ve rızık sadece çalışmak, iş hikayeleri okumak, eğitimlere gitmekle olmuyor. Babanın da duası olması gerekiyor. Hayatım boyunca izlediğim tüm yollarda ve girişimcilik faaliyetlerinde babamın üzerimdeki emeğini, bana olan güvenini, strateji belirlememi sağlayan fikirlerini ve yönlendirmelerini bir çınarın gölgesi gibi üzerimde hissetmişimdir. Gölgesinde dinlenebildiğiniz, sırtınızı yaslayabildiğiniz koca bir çınar... Yaptığım işlerde başarılı olduysam, babamın sayesinde başarmışımdır. Ona minnet borcumu asla ödeyemeyeceğimi altını kalın harflerle çizerek söylemem gerekiyor. İş hayatımda babamın ayak izlerini takip ettim. Girdiğim her sektörde onun bana açtığı izde yürüyerek başarılara imza attım. “Eğer dedikodunuz yapılıyorsa arkanızdan konuşanların ulaşamayacağı başarıyı kazanmışsınız demektir!” İşte çınarın gölgesini üzerimde hissettiğim babam bana bunları öğretti. 5’nci olan bu kitabımı siz okuyucularım ile buluşturmanın huzurunu bir kez daha yaşıyorum. Hayata bakış açımızı özetleyecek bu kitabın ortaya çıkmasında bana hayatı öğreten, gözündeki küçük bir pırıltıyı dünyalara değişmeyeceğim koskoca çınarım, muhterem babam Hacı İlyas Çalık’a, şükranlarımı sunuyorum.",
+      cover: cinarBook,
+    },
   ];
-
-  // 5. kutu: imza görselini tıklanamaz placeholder olarak ekle
-  const pubItems = useMemo<Publication[]>(
-    () => [
-      ...publications,
-      {
-        id: 999,
-        title: "İmza",
-        cover: signature, // land-site/src/assets/images/imza.jpg
-        disabled: true,   // tıklanamaz / modal açılmaz
-      },
-    ],
-    [publications]
-  );
 
   const openPub = (index: number) => {
     setPubIndex(index);
@@ -209,7 +203,7 @@ export default function Kurumsal() {
         </Card>
 
         {/* Yayınlar */}
-        <Card>
+                <Card>
           <h3 className="font-semibold text-lg mb-3">Yayınlarımız</h3>
           <p className="text-sm text-gray-700 mt-1 mb-4">
             Türk insanının düşünce, duygu ve davranışlarını bilimsel psikoloji
@@ -219,40 +213,14 @@ export default function Kurumsal() {
           </p>
 
           {(() => {
-            const firstRow = pubItems.slice(0, 3);
-            const secondRow = pubItems.slice(3, 5);
+            const firstRow = publications.slice(0, 3);
+            const secondRow = publications.slice(3, 5);
 
             const CardButton = ({ p, idx }: { p: Publication; idx: number }) => {
-              const isDisabled = p.disabled || idx >= publications.length;
-
-              // TIKLANAMAZ İMZA KARTI: orijinal oran, ortalanmış, tam kaplamaz
-              if (isDisabled) {
-                return (
-                  <div
-                    key={p.id ?? idx}
-                    className="relative rounded-lg overflow-hidden bg-white ring-1 ring-gray-200 aspect-square w-full
-                               flex items-center justify-center cursor-default select-none"
-                    aria-hidden="true"
-                    title={p.title}
-                  >
-                    {p.cover && (
-                      <img
-                        src={p.cover}
-                        alt="İmza placeholder"
-                        className="max-h-[80%] max-w-[80%] object-contain"
-                        loading="lazy"
-                        decoding="async"
-                      />
-                    )}
-                  </div>
-                );
-              }
-
-              // TIKLANABİLİR KİTAP KARTI
               return (
                 <button
                   key={p.id ?? idx}
-                  onClick={() => openPub(idx)} // yalnızca 0..3
+                  onClick={() => openPub(idx)}
                   aria-label={`${p.title} detayını aç`}
                   title={p.title}
                   className="group relative rounded-lg overflow-hidden bg-gray-100
@@ -270,21 +238,8 @@ export default function Kurumsal() {
                     />
                   ) : (
                     <div className="absolute inset-0 grid place-items-center text-gray-400">
-                      <svg
-                        className="w-6 h-6"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        aria-hidden="true"
-                      >
-                        <rect
-                          x="4"
-                          y="4"
-                          width="16"
-                          height="16"
-                          rx="2"
-                          stroke="currentColor"
-                          strokeWidth="1.6"
-                        />
+                      <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <rect x="4" y="4" width="16" height="16" rx="2" stroke="currentColor" strokeWidth="1.6" />
                         <path
                           d="M8 14l3-3 3 3 2-2 2 2"
                           stroke="currentColor"
@@ -315,11 +270,7 @@ export default function Kurumsal() {
                 {/* 2. Satır: 2 kutu (ortalanmış) */}
                 <div className="grid grid-cols-2 gap-4 md:w-2/3 mx-auto">
                   {secondRow.map((p, i) => (
-                    <CardButton
-                      p={p}
-                      idx={i + firstRow.length}
-                      key={p.id ?? i}
-                    />
+                    <CardButton p={p} idx={i + firstRow.length} key={p.id ?? i} />
                   ))}
                 </div>
               </div>
@@ -490,7 +441,7 @@ export default function Kurumsal() {
         </div>
       </Modal>
 
-            <Modal
+      <Modal
         open={pubOpen}
         onClose={closePub}
         title={publications[pubIndex]?.title || "Yayın Detayı"}
@@ -508,8 +459,19 @@ export default function Kurumsal() {
                 className="inline-flex items-center gap-1 rounded-md border border-gray-200 bg-white px-3 py-1.5 hover:bg-gray-50"
                 aria-label="Önceki yayın"
               >
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M15 19l-7-7 7-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                <svg
+                  className="w-4 h-4"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M15 19l-7-7 7-7"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
                 Önceki
               </button>
@@ -519,8 +481,19 @@ export default function Kurumsal() {
                 aria-label="Sonraki yayın"
               >
                 Sonraki
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M9 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                <svg
+                  className="w-4 h-4"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M9 5l7 7-7 7"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </button>
             </div>
@@ -529,7 +502,7 @@ export default function Kurumsal() {
 
         {/* İçerik + sağ-alt imza */}
         {publications.length > 0 && (
-          <div className="relative pb-14"> 
+          <div className="relative pb-14">
             {/* pb-14: imzanın üstünü kapatmamak için ekstra alt boşluk */}
 
             <div className="grid gap-4 md:grid-cols-2">
@@ -545,9 +518,28 @@ export default function Kurumsal() {
                   />
                 ) : (
                   <div className="text-gray-400">
-                    <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                      <rect x="4" y="4" width="16" height="16" rx="2" stroke="currentColor" strokeWidth="1.6" />
-                      <path d="M8 14l3-3 3 3 2-2 2 2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                    <svg
+                      className="w-8 h-8"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      aria-hidden="true"
+                    >
+                      <rect
+                        x="4"
+                        y="4"
+                        width="16"
+                        height="16"
+                        rx="2"
+                        stroke="currentColor"
+                        strokeWidth="1.6"
+                      />
+                      <path
+                        d="M8 14l3-3 3 3 2-2 2 2"
+                        stroke="currentColor"
+                        strokeWidth="1.6"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
                     </svg>
                   </div>
                 )}
@@ -560,7 +552,9 @@ export default function Kurumsal() {
                     {publications[pubIndex].summary}
                   </p>
                 ) : (
-                  <p className="text-sm text-gray-500">Bu yayın için açıklama eklenmemiş.</p>
+                  <p className="text-sm text-gray-500">
+                    Bu yayın için açıklama eklenmemiş.
+                  </p>
                 )}
               </div>
             </div>
@@ -578,7 +572,6 @@ export default function Kurumsal() {
           </div>
         )}
       </Modal>
-
     </section>
   );
 }
